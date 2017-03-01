@@ -1,4 +1,4 @@
-rapyd-laravel
+rapyd-laravel - My Version - Please use the official version
 =============
 
 [![Join the chat at https://gitter.im/zofe/rapyd-laravel](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/zofe/rapyd-laravel?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
