@@ -40,7 +40,7 @@ class DataGrid extends DataSet
     }
 
     //todo: like "field" for DataForm, should be nice to work with "cell" as instance and "row" as collection of cells
-    public function build($view = '')
+    public function build($view = '', $parameters = [])
     {
         if ($this->output != '') return;
         ($view == '') and $view = 'rapyd::datagrid';
@@ -73,7 +73,7 @@ class DataGrid extends DataSet
             }
             $this->rows[] = $row;
         }
-        $this->output = \View::make($view, array('dg' => $this, 'buttons'=>$this->button_container, 'label'=>$this->label))->render();
+        $this->output = \View::make($view, array_merge($parameters, array('dg' => $this, 'buttons'=>$this->button_container, 'label'=>$this->label)))->render();
         return $this->output;
     }
 
@@ -221,9 +221,9 @@ class DataGrid extends DataSet
         return $value;
     }
 
-    public function getGrid($view = '')
+    public function getGrid($view = '', $parameters = [])
     {
-        $this->build($view);
+        $this->build($view, $parameters);
 
         return $this->output;
     }
