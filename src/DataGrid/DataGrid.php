@@ -13,6 +13,7 @@ class DataGrid extends DataSet
     public $columns = array();
     public $headers = array();
     public $rows = array();
+    public $footer = "";
     public $output = "";
     public $attributes = array("class" => "table");
     public $checkbox_form = false;
@@ -37,6 +38,11 @@ class DataGrid extends DataSet
             $this->addOrderBy($column->orderby_field);
         }
         return $column;
+    }
+
+    public function addFooter($footer)
+    {
+        $this->footer = $footer;
     }
 
     //todo: like "field" for DataForm, should be nice to work with "cell" as instance and "row" as collection of cells

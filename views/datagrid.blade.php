@@ -42,6 +42,9 @@
                 </tr>
             @endforeach
             </tbody>
+            @if (!empty($dg->footer))
+                {!! $dg->footer !!}
+            @endif
         </table>
     </div>
 
