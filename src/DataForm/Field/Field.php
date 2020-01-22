@@ -73,7 +73,7 @@ abstract class Field extends Widget
     public $messages = array();
     public $query_scope;
     public $query_scope_params = [];
-    
+
     /**
      * auto apply xss filter or not
      * @var bool
@@ -150,6 +150,8 @@ abstract class Field extends Widget
             }
 
             return;
+        } else if (!isset($this->model) || (isset($this->model) && !method_exists($this->model, $relation))) {
+            $this->relation = $relation;
         }
 
         //otherwise replace dots with underscores so field names are html/js friendly
@@ -514,20 +516,20 @@ abstract class Field extends Widget
         return $this;
     }
 
-    public function editable() 
+    public function editable()
     {
         if ($this->mode == 'readonly') {
             return $this->edited;
         }
         return true;
     }
-    
+
     public function autoUpdate($save = false)
     {
         $this->getValue();
         $this->getNewValue();
         if (!$this->editable()) return true;
-        
+
         if (is_object($this->model) && isset($this->db_name)) {
             if (
                 !(Schema::connection($this->model->getConnectionName())->hasColumn($this->model->getTable(), $this->db_name)
@@ -535,24 +537,24 @@ abstract class Field extends Widget
                 || is_a($this->relation, 'Illuminate\Database\Eloquent\Relations\Relation') //Relation
                 ) {
 
-                //belongsTo relation 
+                //belongsTo relation
                 if (is_a($this->relation, 'Illuminate\Database\Eloquent\Relations\BelongsTo')) {
                     $this->model->setAttribute($this->db_name, $this->new_value);
                     return true;
                 }
                 //other kind of relations are postponed
-                $self = $this; 
+                $self = $this;
                 $this->model->saved(function () use ($self) {
                     $self->updateRelations();
                 });
-                
+
                 //check for relation then exit
                 return true;
             }
             if (!is_a($this->relation, 'Illuminate\Database\Eloquent\Relations\Relation')) {
                 $this->model->setAttribute($this->db_name, $this->new_value);
             }
-            
+
             if ($save) {
                 return $this->model->save();
             }
@@ -571,7 +573,7 @@ abstract class Field extends Widget
         if ($this->relation != null) {
 
             //dd($this->relation, get_class($this->relation));
-            
+
             $methodClass = get_class($this->relation);
             switch ($methodClass) {
                 case 'Illuminate\Database\Eloquent\Relations\BelongsToMany':
@@ -607,7 +609,7 @@ abstract class Field extends Widget
                     $relation->{$this->rel_field} = $data;
                     $this->relation->save( $relation );
                     break;
-                
+
                 case 'Illuminate\Database\Eloquent\Relations\HasOneOrMany':
 
                 case 'Illuminate\Database\Eloquent\Relations\HasMany':
@@ -643,7 +645,7 @@ abstract class Field extends Widget
     }
 
     /**
-     * parse blade view passing current model 
+     * parse blade view passing current model
      * @param $view
      * @return string
      */
@@ -651,7 +653,7 @@ abstract class Field extends Widget
     {
         return $this->parseString($view, true);
     }
-    
+
 
     public function build()
     {
@@ -719,7 +721,7 @@ abstract class Field extends Widget
 
         return $output;
     }
-    
+
     /**
      * Set auto apply xss filter or not
      *

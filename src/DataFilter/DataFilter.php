@@ -106,13 +106,13 @@ class DataFilter extends DataForm
                             $this->query = call_user_func_array($query_scope, $query_scope_params);
 
                         } elseif (isset($this->model) && method_exists($this->model, "scope".$query_scope)) {
-                            
+
                             $query_scope = "scope".$query_scope;
                             array_unshift($query_scope_params, $value);
                             array_unshift($query_scope_params, $this->query);
                             $this->query = call_user_func_array([$this->model, $query_scope], $query_scope_params);
-                            
-                        } 
+
+                        }
                         continue;
                     }
 
@@ -139,7 +139,7 @@ class DataFilter extends DataForm
 
                         }
                     }
-                    
+
                     if ($value != "" or (is_array($value)  and count($value)) ) {
                         if (strpos($field->name, "_copy") > 0) {
                             $name = substr($field->db_name, 0, strpos($field->db_name, "_copy"));
@@ -148,7 +148,7 @@ class DataFilter extends DataForm
                         }
 
                         //$value = $field->value;
-                       
+
                         if ($deep_where) {
                             //exception for multiple value fields on BelongsToMany
                             if (
@@ -242,6 +242,7 @@ class DataFilter extends DataForm
 
                         //not deep, where is on main entity
                         } else {
+                            $name = ((!is_object($this->model) && $field->relation !== null) || (is_object($this->model) && null !== $field->relation && !method_exists($this->model, $field->relation)) ? $field->relation . '.' . $name : $name);
 
                             switch ($field->clause) {
                                 case "like":
