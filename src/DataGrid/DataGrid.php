@@ -1,9 +1,11 @@
 <?php namespace Zofe\Rapyd\DataGrid;
 
 use Illuminate\Support\Facades\View;
+use Psy\Util\Str;
 use Zofe\Rapyd\DataSet as DataSet;
 use Zofe\Rapyd\Persistence;
 use Illuminate\Support\Facades\Config;
+
 
 class DataGrid extends DataSet
 {

@@ -132,7 +132,7 @@ abstract class Field extends Widget
             $this->name = ($name != $relation) ? $relation . "_" . $name : $name;
 
             if (is_a(@$this->relation, 'Illuminate\Database\Eloquent\Relations\BelongsTo')){
-                $this->db_name = $this->relation->getForeignKey();
+                $this->db_name = $this->relation->getForeignKeyName();
             } else {
                 $this->db_name = $name;
             }
@@ -300,19 +300,19 @@ abstract class Field extends Widget
     {
         $name = $this->db_name;
 
-        $process = (Request::get('search') || Request::get('save')) ? true : false;
+        $process = (\Request::get('search') || \Request::get('save')) ? true : false;
 
         //fix, don't refill on file fields
         if (in_array($this->type, array('file','image'))) {
             $this->request_refill = false;
         }
 
-        if ($this->request_refill == true && $process && Request::exists($this->name) ) {
+        if ($this->request_refill == true && $process && \Request::exists($this->name) ) {
             if ($this->multiple) {
 
                 $this->value = "";
-                if (Request::get($this->name)) {
-                    $values = Request::get($this->name);
+                if (\Request::get($this->name)) {
+                    $values = \Request::get($this->name);
                     if (!is_array($values)) {
                         $this->value = $values;
                     } else {
@@ -322,9 +322,9 @@ abstract class Field extends Widget
 
             } else {
                 if($this->with_xss_filter) {
-                    $this->value = HTML::xssfilter(Request::get($this->name));
+                    $this->value = HTML::xssfilter(\Request::get($this->name));
                 } else {
-                    $this->value = Request::get($this->name);
+                    $this->value = \Request::get($this->name);
                 }
             }
             $this->is_refill = true;
@@ -362,7 +362,7 @@ abstract class Field extends Widget
                     break;
                 //es. "author" per "Article"
                 case $this->relation instanceof \Illuminate\Database\Eloquent\Relations\BelongsTo:
-                    $fk = $this->relation->getForeignKey(); //value I need is the ForeingKey
+                    $fk = $this->relation->getForeignKeyName(); //value I need is the ForeingKey
                     $this->value = $this->model->getAttribute($fk);
                     break;
 
@@ -382,7 +382,7 @@ abstract class Field extends Widget
                         . " but Rapyd can handle only BelongsToMany, BelongsTo, and HasOne");
                     break;
             }
-        } elseif ((isset($this->model)) && (Request::get($this->name) === null) && ($this->model->offsetExists($this->db_name))) {
+        } elseif ((isset($this->model)) && (\Request::get($this->name) === null) && ($this->model->offsetExists($this->db_name))) {
 
             $this->value = $this->model->getAttribute($this->db_name);
         }
@@ -393,9 +393,9 @@ abstract class Field extends Widget
 
     public function getNewValue()
     {
-        $process = (Request::get('search') || Request::get('save')) ? true : false;
+        $process = (\Request::get('search') || \Request::get('save')) ? true : false;
 
-        if ($process && Request::exists($this->name)) {
+        if ($process && \Request::exists($this->name)) {
             if ($this->status == "create") {
                 $this->action = "insert";
             } elseif ($this->status == "modify") {
@@ -404,8 +404,8 @@ abstract class Field extends Widget
 
             if ($this->multiple) {
                 $this->value = "";
-                if (Request::get($this->name)) {
-                    $values = Request::get($this->name);
+                if (\Request::get($this->name)) {
+                    $values = \Request::get($this->name);
                     if (!is_array($values)) {
                         $this->new_value = $values;
                     } else {
@@ -415,9 +415,9 @@ abstract class Field extends Widget
 
             } else {
                 if($this->with_xss_filter) {
-                    $this->new_value = HTML::xssfilter(Request::get($this->name));
+                    $this->new_value = HTML::xssfilter(\Request::get($this->name));
                 } else {
-                    $this->new_value = Request::get($this->name);
+                    $this->new_value = \Request::get($this->name);
                 }
             }
         } elseif (($this->action == "insert") && ($this->insert_value != null)) {
@@ -584,7 +584,7 @@ abstract class Field extends Widget
                     $this->relation->detach($old_data);
 
                     if ($data=='') {
-                        continue;
+                        break;
                     }
 
                     if (is_callable($this->extra_attributes)) {

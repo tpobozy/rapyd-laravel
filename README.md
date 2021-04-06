@@ -14,32 +14,31 @@ This is a pool of presentation and editing widgets (Grids and Forms) for laravel
 Nothing to "generate", just some classes to let you develop and maintain CRUD backends in few lines of code.  
   
  
- Documentation: [Wiki](https://github.com/zofe/rapyd-laravel/wiki)  
+ Documentation: [Wiki](https://github.com/zofe/rapyd-laravel/wiki)   
+ Demo: [rapyd.dev](https://rapyd.dev/rapyd-demo)  
+ 
  
 ![rapyd laravel](https://raw.github.com/zofe/rapyd-laravel/master/public/assets/rapyd-laravel.png)
  
 
 
-## Install in Laravel 5.6, .. 5.2, 5.1, 5.0, 4.*
+## Install in Laravel 8, 7, 6, 5.8..
 
-
-require the package in your Laravel >= 5.6  
+require the package in your Laravel  
 `$ composer require zofe/rapyd`
 
 then publish assets:  
 `$ php artisan vendor:publish`  
 
-you can also require a specific version:
-
-`zofe/rapyd:"2.2.*"` for Laravel 5.2  
-`zofe/rapyd:"2.1.*"` for Laravel 5.1  
-`zofe/rapyd:"2.0.*"` for Laravel 5.0
+and choose ` Zofe\Rapyd\RapydServiceProvider` 
 
 
-note: for Laravel <=5.4 you need to add the provider in your config/app.php:
 
-`Zofe\Rapyd\RapydServiceProvider::class` 
 
+## how to 
+
+just go to `/rapyd-demo` for a bit of demos of all widgets.  
+Then you'll be able to populate some data (be sure that db connection env/config is valid)
 
 ## A couple of minutes of your time before you start
 

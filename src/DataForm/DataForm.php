@@ -296,7 +296,7 @@ class DataForm extends Widget
         }
         if (isset($rules)) {
 
-            $this->validator = Validator::make(Request::all(), $rules, $this->validator_messages, $attributes);
+            $this->validator = Validator::make(\Request::all(), $rules, $this->validator_messages, $attributes);
 
             return !$this->validator->fails();
         } else {
