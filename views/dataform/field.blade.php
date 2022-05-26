@@ -4,7 +4,7 @@
 
     @if ($field->message!='')
     <span class="help-block">
-        <span class="glyphicon glyphicon-warning-sign"></span>
+        <span class="fas fa-warning-sign"></span>
         {!! $field->message !!}
     </span>
     @endif
@@ -25,7 +25,7 @@
             @if(count($field->messages))
                 @foreach ($field->messages as $message)
                     <span class="help-block">
-                        <span class="glyphicon glyphicon-warning-sign"></span>
+                        <span class="fas fa-warning-sign"></span>
                         {!! $message !!}
                     </span>
                 @endforeach

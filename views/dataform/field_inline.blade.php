@@ -4,7 +4,7 @@
 
     @if ($field->message!='')
         <span class="help-block">
-            <span class="glyphicon glyphicon-warning-sign"></span>
+            <span class="fas fa-warning-sign"></span>
             {!! $field->message !!}
         </span>
     @endif
@@ -18,7 +18,7 @@
             {!! $field->output !!}
 
             @if(count($field->messages))
-            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            <span class="fas fa-remove form-control-feedback"></span>
             @endif
 
         </span>
