@@ -40,6 +40,8 @@ class DataSet extends Widget
     protected $orderby_uri_asc;
     protected $orderby_uri_desc;
 
+    protected $backuporderby = array();
+
     /**
      * @param $source
      *
@@ -85,6 +87,13 @@ class DataSet extends Widget
     public function orderBy($field, $direction="asc")
     {
         $this->orderby = array($field, $direction);
+
+        return $this;
+    }
+
+    public function backupOrderBy($field, $direction="asc")
+    {
+        $this->backuporderby = array($field, $direction);
 
         return $this;
     }
@@ -270,6 +279,10 @@ class DataSet extends Widget
                 if (isset($this->orderby[0])) {
                     $this->query = $this->query->orderBy($this->orderby[0], $this->orderby[1] ?? 'asc');
                 }
+                // Add a backup order by to allow for expected sorting when 2 rows are sorted on the same value
+                if (isset($this->backuporderby[0])) {
+                    $this->query = $this->query->orderBy($this->backuporderby[0], $this->backuporderby[1] ?? 'asc');
+                }
 
                 //limit-offset
                 if (isset($this->limit)){
@@ -298,7 +311,7 @@ class DataSet extends Widget
 
     /**
      * current data collection
-     * 
+     *
      * @return array
      */
     public function getData()
@@ -307,15 +320,15 @@ class DataSet extends Widget
     }
 
     /**
-     * total row count 
-     * 
+     * total row count
+     *
      * @return string
      */
     public function totalRows()
     {
         return $this->total_rows;
     }
-    
+
     /**
      * @param string $view
      *
@@ -340,21 +353,21 @@ class DataSet extends Widget
     }
 
     /**
-     * add the ability to check & enable "order by" of given field/s 
-     * by default you can order by 
-     * 
+     * add the ability to check & enable "order by" of given field/s
+     * by default you can order by
+     *
      * @param mixed $fieldname
      */
     public function addOrderBy($fieldname)
     {
         $this->orderby_check = true;
         $this->orderby_fields = array_merge($this->orderby_fields, (array)$fieldname);
-        
+
         return $this;
     }
-    
+
     protected function canOrderby($fieldname)
     {
-        return (!$this->orderby_check || in_array($fieldname, $this->orderby_fields)); 
+        return (!$this->orderby_check || in_array($fieldname, $this->orderby_fields));
     }
 }
