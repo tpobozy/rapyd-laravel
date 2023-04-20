@@ -242,7 +242,7 @@ class DataFilter extends DataForm
 
                         //not deep, where is on main entity
                         } else {
-                            $name = ((!is_object($this->model) && $field->relation !== null) || (is_object($this->model) && null !== $field->relation && !method_exists($this->model, $field->relation)) ? $field->relation . '.' . $name : $name);
+                            //$name = ((!is_object($this->model) && $field->relation !== null) || (is_object($this->model) && null !== $field->relation && !method_exists($this->model, $field->relation)) ? $field->relation . '.' . $name : $name);
 
                             switch ($field->clause) {
                                 case "like":
