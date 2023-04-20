@@ -1,5 +1,5 @@
 {
-    "name": "bretto36/rapyd-laravel",
+    "name": "tpobozy/rapyd-laravel",
     "description": "crud widgets for laravel, to make an admin in few lines of code",
     "homepage": "https://github.com/bretto36/rapyd-laravel",
     "keywords": ["laravel", "crud", "rapyd", "administrator", "admin", "backend", "datatable", "form"],
