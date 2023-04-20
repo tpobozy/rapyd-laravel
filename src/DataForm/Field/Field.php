@@ -150,9 +150,9 @@ abstract class Field extends Widget
             }
 
             return;
-        } else if (!isset($this->model) || (isset($this->model) && !method_exists($this->model, $relation))) {
+        } /*else if (!isset($this->model) || (isset($this->model) && !method_exists($this->model, $relation))) {
             $this->relation = $relation;
-        }
+        }*/
 
         //otherwise replace dots with underscores so field names are html/js friendly
         $this->name = str_replace(array(".", ",", "`"), array("_", "_", "_"), $name);
