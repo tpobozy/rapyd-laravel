@@ -12,7 +12,7 @@
     "require": {
         "php": "^8.1",
         "illuminate/support": "~7.0|~8.0|~9.0|~10.0|~11.0|~12.0",
-        "laravelcollective/html": "^6.0",
+        "laravelcollective/html": "dev-master",
         "intervention/image": "^2.0"
     },
     "suggest": {
@@ -32,7 +32,13 @@
                 "Zofe\\Rapyd\\RapydServiceProvider"
             ]
         }
-    },
+    },    
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/tpobozy/laravel-collective-html"
+        }
+    ],
     "require-dev": {
         "illuminate/support": "*",
         "orchestra/testbench": "^6.0",
