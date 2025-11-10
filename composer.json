@@ -41,7 +41,6 @@
     ],
     "require-dev": {
         "illuminate/support": "*",
-        "orchestra/testbench": "^6.0",
         "phpunit/phpunit": "*"
     },
     "minimum-stability": "dev",
